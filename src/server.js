@@ -14,16 +14,19 @@ import store from './redux/store.js'
 // (`parameters` may contain some miscellaneous library-specific stuff)
 export default function(parameters)
 {
+	console.log('parameters: ');
+	console.log(parameters.chunks());
 	// Create HTTP server
 	const app = new express()
 	const server = new http.Server(app)
 
 	// Serve static files
-	app.use(express.static(path.join(__dirname, 'dist/assets')))
+	// app.use(express.static(path.join(__dirname, 'dist/assets')))
 
 	// React application rendering
 	app.use((req, res) =>
 	{
+		console.log('heeeere');
 		// Match current URL to the corresponding React page
 		// (can use `react-router`, `redux-router`, `react-router-redux`, etc)
 		react_router_match_url(routes, req.originalUrl).then((error, result) =>
@@ -44,5 +47,8 @@ export default function(parameters)
 	})
 
 	// Start the HTTP server
-	server.listen()
+	server.listen(3000, (err) => {
+		if (err) console.error(err);
+		console.info('on port 3000');
+	})
 }

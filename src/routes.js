@@ -1,10 +1,9 @@
 import React from 'react'
-import IndexRoute from 'react-router/lib/IndexRoute'
-import { Router, Route } from 'react-router';
-import { Shell } from './Shell/Shell'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { App } from './App'
 
 export default (
-  <Router>
-    <Route path="/" component={Shell} />
-  </Router>
+  <BrowserRouter>
+    <Route path="/" component={App} />
+  </BrowserRouter>
 )
