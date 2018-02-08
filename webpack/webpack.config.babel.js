@@ -15,9 +15,9 @@ let getBrandedWebPackConfiguration = (brandName) => {
 
   output: {
     path: path.join(__dirname, `../${brandName}`),
-    filename: `${brandName}/js/[name].[chunkhash:8].js`,
+    filename: '[name].[chunkhash:8].js',
     // chunkFilename: `${brandName}/js/[name].[chunkhash:8].js`,
-    publicPath: `/${brandName}`
+    publicPath: `/${brandName}/`
   },
 
   resolve: {
@@ -41,7 +41,14 @@ let getBrandedWebPackConfiguration = (brandName) => {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+                importLoaders: 1,
+              }
+            },
             { 
               loader: 'postcss-loader',
               options: {
@@ -65,7 +72,7 @@ let getBrandedWebPackConfiguration = (brandName) => {
   },
 
   plugins: [
-    new ExtractTextPlugin(`${brandName}/css/styles.css`)
+    new ExtractTextPlugin(`[name].[chunkhash:8].css`)
     ]
 }
 }

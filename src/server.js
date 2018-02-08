@@ -7,10 +7,12 @@ import http_proxy from 'http-proxy'
 import React from 'react';
 import StaticRouter from 'react-router/StaticRouter';
 import Provider from 'react-redux/lib/components/Provider';
+import ReactDOM from 'react-dom/server';
 
 // import routes from './routes.js'
 import App from './App.js'
 import createReduxStore from './redux/store.js'
+import Html from './Html.js'
 
 // The server code must export a function
 // (`parameters` may contain some miscellaneous library-specific stuff)
@@ -41,21 +43,16 @@ export default function(parameters)
 		);
 		console.log('component');
 		console.log(component);
-		/*react_router_match_url(routes, req.originalUrl).then((error, result) =>
-		{
-			if (error)
-			{
-				res.status(500)
-				return res.send('Server error')
-			}
 
-			// Render React page
-
-			const page = redux.provide(result, store)
-
-			res.status(200)
-			result.send('<!doctype html>' + '\n' + ReactDOM.renderToString(<Html>{page}</Html>))
-		})*/
+		let lightWebpackChunks = require('../light/webpack-chunks.json');
+		console.log(lightWebpackChunks);
+		let darkWebpackChunks = require('../dark/webpack-chunks.json');
+		const props = {
+			assets: lightWebpackChunks,
+			component: component
+		}
+		console.log('about to send!');
+		res.send(`<!doctype html>\n${ReactDOM.renderToString(<Html {...props} />)}`);
 	})
 
 	// Start the HTTP server
