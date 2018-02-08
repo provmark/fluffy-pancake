@@ -1,7 +1,0 @@
-{
-	"server":
-	{
-		"input": "./src/server.js",
-		"output": "./dark/server.js"
-	}
-}

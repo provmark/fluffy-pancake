@@ -7,12 +7,6 @@ export default function Html({
     styles, js, component
 }) {
     const content = component ? ReactDOM.renderToString(component) : '';
-    console.log('styles: ');
-    console.log(styles);
-    console.log(styles.app);
-    console.log(JSON.stringify(styles.app))
-    console.log('js: ');
-    console.log(js);
     const {
         base, title, meta, link, script,
       } = Helmet.rewind();

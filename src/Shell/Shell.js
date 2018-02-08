@@ -1,21 +1,18 @@
 import React from 'react'
 
-import { Welcome } from '../Welcome/Welcome'
+import Welcome from '../Welcome/Welcome'
 import styles from './Shell.css'
 
-export default class Shell extends React.Component {
-  
-  render () {
-  console.log('in shell render!');
-  console.log('styles: ');
-  console.log(styles);
+// todo is there a better way to do this...?
+import baseStyles from '../styles/styles.css'
+
+export default function Shell() {
   return (
-    <div>
-      <header className={styles.header}>Theme Pattern Example</header>
-      <div className={styles.body}>
-      <h1>yayyyy!</h1>
+      <div>
+        <header className={styles.header}>Theme Pattern Example</header>
+        <div className={styles.body}>
+          <Welcome></ Welcome>
         </div>
-    </div>
+      </div>
   )
-}
 }

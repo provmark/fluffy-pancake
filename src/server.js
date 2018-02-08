@@ -25,8 +25,7 @@ export default function(parameters)
 	// Create HTTP server
 	const app = new express()
 	const server = new http.Server(app)
-	app.use('/dark', express.static('dark'));
-	app.use('/light', express.static('light'));
+	app.use('/build', express.static('build'));
 
 	// Serve static files
 	// app.use(express.static(path.join(__dirname, 'dist/assets')))
@@ -52,9 +51,9 @@ export default function(parameters)
 		console.log('component');
 		console.log(component);
 		
-		let chunks = require('../light/webpack-chunks.json');		
+		let chunks = require('../build/light/webpack-chunks.json');
 		if (query.brand && query.brand == 'dark') {
-			chunks = require('../dark/webpack-chunks.json');
+			chunks = require('../build/dark/webpack-chunks.json');
 		}
 		const props = {
 			styles: chunks.styles,
