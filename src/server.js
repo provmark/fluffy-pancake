@@ -3,12 +3,14 @@ import path from 'path'
 import http from 'http'
 import express from 'express'
 import http_proxy from 'http-proxy'
+// react
+import React from 'react';
+import StaticRouter from 'react-router/StaticRouter';
+import Provider from 'react-redux/lib/components/Provider';
 
-// react-router
-import routes from './routes.js'
-
-// Redux
-import store from './redux/store.js'
+// import routes from './routes.js'
+import App from './App.js'
+import createReduxStore from './redux/store.js'
 
 // The server code must export a function
 // (`parameters` may contain some miscellaneous library-specific stuff)
@@ -27,9 +29,19 @@ export default function(parameters)
 	app.use((req, res) =>
 	{
 		console.log('heeeere');
+		console.log(req.url);
 		// Match current URL to the corresponding React page
 		// (can use `react-router`, `redux-router`, `react-router-redux`, etc)
-		react_router_match_url(routes, req.originalUrl).then((error, result) =>
+		let component = (
+			<Provider store={createReduxStore()} key="provider">
+			<StaticRouter location={req.url} context={{}}>
+			  <App />
+			</StaticRouter>
+		  </Provider>
+		);
+		console.log('component');
+		console.log(component);
+		/*react_router_match_url(routes, req.originalUrl).then((error, result) =>
 		{
 			if (error)
 			{
@@ -42,8 +54,8 @@ export default function(parameters)
 			const page = redux.provide(result, store)
 
 			res.status(200)
-			res.send('<!doctype html>' + '\n' + ReactDOM.renderToString(<Html>{page}</Html>))
-		})
+			result.send('<!doctype html>' + '\n' + ReactDOM.renderToString(<Html>{page}</Html>))
+		})*/
 	})
 
 	// Start the HTTP server

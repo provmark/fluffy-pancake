@@ -14,10 +14,10 @@ let getBrandedWebPackConfiguration = (brandName) => {
   },
 
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, `../${brandName}`),
     filename: `${brandName}/js/[name].[chunkhash:8].js`,
     // chunkFilename: `${brandName}/js/[name].[chunkhash:8].js`,
-    publicPath: '/dist/'
+    publicPath: `/${brandName}`
   },
 
   resolve: {
@@ -39,6 +39,7 @@ let getBrandedWebPackConfiguration = (brandName) => {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
           use: [
             'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
             { 
@@ -69,5 +70,7 @@ let getBrandedWebPackConfiguration = (brandName) => {
 }
 }
 
-module.exports = getBrandedWebPackConfiguration('dark');
-  // getBrandedWebPackConfiguration('light'),
+module.exports = [
+  getBrandedWebPackConfiguration('dark'),
+  getBrandedWebPackConfiguration('light')
+]
