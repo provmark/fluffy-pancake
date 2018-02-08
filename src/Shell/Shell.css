@@ -1,4 +1,4 @@
-.header
+.header {
   background-color: var(--header-background-color);
   color: var(--header-text-color);
   width: 100%;
@@ -11,6 +11,8 @@
   padding-top: var(--header-top-padding);
   font-size: var(--header-font-size);
   font-family: var(--heading-font-family);
+}
 
-.body
+.body {
   margin-top: calc(var(--header-height) + 50px)
+}

@@ -15,7 +15,7 @@ let getBrandedWebPackConfiguration = (brandName) => {
 
   output: {
     path: path.join(__dirname, `../${brandName}`),
-    filename: '[name].[chunkhash:8].js',
+    filename: '[name]-[chunkhash:8].js',
     // chunkFilename: `${brandName}/js/[name].[chunkhash:8].js`,
     publicPath: `/${brandName}/`
   },
@@ -47,11 +47,13 @@ let getBrandedWebPackConfiguration = (brandName) => {
                 modules: true,
                 localIdentName: '[name]__[local]___[hash:base64:5]',
                 importLoaders: 1,
+                sourceMap: true,
               }
             },
             { 
               loader: 'postcss-loader',
               options: {
+                sourceMap: true,
                 plugins: function() {
                   return [
                     require("postcss-cssnext")({
@@ -72,7 +74,7 @@ let getBrandedWebPackConfiguration = (brandName) => {
   },
 
   plugins: [
-    new ExtractTextPlugin(`[name].[chunkhash:8].css`)
+    new ExtractTextPlugin(`styles-[chunkhash:8].css`)
     ]
 }
 }

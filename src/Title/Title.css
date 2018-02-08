@@ -1,6 +1,7 @@
 
-.title
+.title {
   color: var(--heading-large-color);
   font-family: var(--heading-font-family);
   margin: 0;
   margin-bottom: 30px;
+}

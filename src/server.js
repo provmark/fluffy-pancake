@@ -23,6 +23,8 @@ export default function(parameters)
 	// Create HTTP server
 	const app = new express()
 	const server = new http.Server(app)
+	app.use('/dark', express.static('dark'));
+	app.use('/dark', express.static('light'));
 
 	// Serve static files
 	// app.use(express.static(path.join(__dirname, 'dist/assets')))
@@ -48,7 +50,8 @@ export default function(parameters)
 		console.log(lightWebpackChunks);
 		let darkWebpackChunks = require('../dark/webpack-chunks.json');
 		const props = {
-			assets: lightWebpackChunks,
+			styles: darkWebpackChunks.styles,
+			js: darkWebpackChunks.javascript,
 			component: component
 		}
 		console.log('about to send!');

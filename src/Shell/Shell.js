@@ -7,6 +7,8 @@ export default class Shell extends React.Component {
   
   render () {
   console.log('in shell render!');
+  console.log('styles: ');
+  console.log(styles);
   return (
     <div>
       <header className={styles.header}>Theme Pattern Example</header>
