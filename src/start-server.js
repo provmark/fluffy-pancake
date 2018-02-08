@@ -3,4 +3,4 @@ var settings = require('../webpack/universal-webpack-settings')
 // `configuration.context` and `configuration.output.path` are used
 var configuration = require('../webpack/webpack.config.babel')
 
-startServer(configuration('dark'), settings.getServerData('dark'))
+startServer(configuration('dark'), settings)

@@ -49,16 +49,10 @@ let getBrandedWebPackConfiguration = (brandName) => {
                 loader: 'postcss-loader',
                 options: {
                   sourceMap: true,
-                  plugins: function () {
-                    return [
-                      require("postcss-cssnext")({
-                        features: {
-                          customProperties: {
-                            variables: require(path.join(__dirname, `../config/themes/${brandName}/theme.js`))
-                          }
-                        }
-                      })
-                    ]
+                  config: {
+                    ctx: {
+                      theme: brandName
+                    }
                   }
                 }
               }

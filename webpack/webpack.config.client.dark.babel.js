@@ -2,4 +2,4 @@ import { client } from 'universal-webpack/config'
 import settings from './universal-webpack-settings'
 import configuration from './webpack.config.babel'
 
-export default client(configuration('dark'), settings.getServerData('dark'))
+export default client(configuration('dark'), settings)
