@@ -3,6 +3,8 @@ import path from 'path'
 import http from 'http'
 import express from 'express'
 import http_proxy from 'http-proxy'
+import qs from 'qs'
+
 // react
 import React from 'react';
 import StaticRouter from 'react-router/StaticRouter';
@@ -24,7 +26,7 @@ export default function(parameters)
 	const app = new express()
 	const server = new http.Server(app)
 	app.use('/dark', express.static('dark'));
-	app.use('/dark', express.static('light'));
+	app.use('/light', express.static('light'));
 
 	// Serve static files
 	// app.use(express.static(path.join(__dirname, 'dist/assets')))
@@ -34,6 +36,10 @@ export default function(parameters)
 	{
 		console.log('heeeere');
 		console.log(req.url);
+		const query = qs.parse(req.query);
+		console.log('query: ');
+		console.log(query);
+
 		// Match current URL to the corresponding React page
 		// (can use `react-router`, `redux-router`, `react-router-redux`, etc)
 		let component = (
@@ -45,13 +51,14 @@ export default function(parameters)
 		);
 		console.log('component');
 		console.log(component);
-
-		let lightWebpackChunks = require('../light/webpack-chunks.json');
-		console.log(lightWebpackChunks);
-		let darkWebpackChunks = require('../dark/webpack-chunks.json');
+		
+		let chunks = require('../light/webpack-chunks.json');		
+		if (query.brand && query.brand == 'dark') {
+			chunks = require('../dark/webpack-chunks.json');
+		}
 		const props = {
-			styles: darkWebpackChunks.styles,
-			js: darkWebpackChunks.javascript,
+			styles: chunks.styles,
+			js: chunks.javascript,
 			component: component
 		}
 		console.log('about to send!');
