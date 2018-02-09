@@ -13,7 +13,7 @@ const getThemedWebPackConfiguration = (themeName) => {
     throw new Error(`No theme found that matches '${themeName}'.  The build should now abort.`);
   }
 
-  console.log('Theme:', JSON.stringify(activeTheme));
+  // console.log('Theme:', JSON.stringify(activeTheme));
 
   return {
     entry: {
@@ -21,9 +21,9 @@ const getThemedWebPackConfiguration = (themeName) => {
     },
 
     output: {
-      path: path.join(__dirname, `../build/${themeName}`),
+      path: path.join(__dirname, `../build/client/${themeName}`),
       filename: '[name]-[chunkhash:8].js',
-      publicPath: `/build/${themeName}/`
+      publicPath: `/build/client/${themeName}/`
     },
 
     resolve: {

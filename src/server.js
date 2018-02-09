@@ -50,11 +50,15 @@ export default function(parameters)
 		);
 		console.log('component');
 		console.log(component);
-		
-		let chunks = require('../build/light/webpack-chunks.json');
-		if (query.brand && query.brand == 'dark') {
-			chunks = require('../build/dark/webpack-chunks.json');
+
+		// TODO: this needs to be worked out to be more dynamic and at least validate
+		// the brand before attempting to load from the file system
+		let chunks = require(`../build/client/${query.brand}/webpack-chunks.json`);
+		if (!chunks) {
+			res.status(404).send('Not found');
+			return;
 		}
+
 		const props = {
 			styles: chunks.styles,
 			js: chunks.javascript,

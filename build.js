@@ -13,7 +13,7 @@ var themes = require('@provdig/circus.themes');
 
 // Remove all content but keep the directory so that
 // if you're in it, you don't end up in Trash
-rimrafSync('./dist/*');
+rimrafSync('./build/client/*');
 
 var webpackConfigs = [];
 
