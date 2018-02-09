@@ -1,5 +1,6 @@
 import { server } from 'universal-webpack/config'
 import settings from './universal-webpack-settings'
-import configuration from './webpack.config.babel'
+import getBrandedWebPackConfiguration from './webpack.config.babel'
 
-export default server(configuration('dark'), settings)
+console.log('Theme Name: ', process.env.THEME_NAME);
+export default server(getBrandedWebPackConfiguration(process.env.THEME_NAME), settings)

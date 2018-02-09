@@ -2,17 +2,28 @@ var webpack = require('webpack')
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var themes = require('@provdig/circus.themes');
 
-let getBrandedWebPackConfiguration = (brandName) => {
+const getThemedWebPackConfiguration = (themeName) => {
+  var activeTheme = themes.themeIndex.find((toMatch) => {
+    return toMatch.name === themeName;
+  });
+
+  if (!activeTheme) {
+    throw new Error(`No theme found that matches '${themeName}'.  The build should now abort.`);
+  }
+
+  console.log('Theme:', JSON.stringify(activeTheme));
+
   return {
     entry: {
       app: './src/client.js',
     },
 
     output: {
-      path: path.join(__dirname, `../build/${brandName}`),
+      path: path.join(__dirname, `../build/${themeName}`),
       filename: '[name]-[chunkhash:8].js',
-      publicPath: `/build/${brandName}/`
+      publicPath: `/build/${themeName}/`
     },
 
     resolve: {
@@ -51,7 +62,7 @@ let getBrandedWebPackConfiguration = (brandName) => {
                   sourceMap: true,
                   config: {
                     ctx: {
-                      theme: brandName
+                      theme: activeTheme.styles
                     }
                   }
                 }
@@ -68,6 +79,4 @@ let getBrandedWebPackConfiguration = (brandName) => {
   }
 }
 
-module.exports = function (theme) {
-  return getBrandedWebPackConfiguration(theme);
-}
+module.exports = getThemedWebPackConfiguration;
